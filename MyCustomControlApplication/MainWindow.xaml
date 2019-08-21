@@ -4,9 +4,29 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:MyCustomControlApplication"
+        xmlns:cc="clr-namespace:CustomControlLibrary;assembly=CustomControlLibrary"
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Grid>
-        
+        <StackPanel>
+            <cc:ExpandableDataGrid ItemsSource="{Binding Path=People}">
+                <DataGrid.Columns>
+                    <DataGridTextColumn Header="First Name" Visibility="Visible" Binding="{Binding Path=FirstName}"/>
+                    <DataGridTextColumn Header="Middle Name" Visibility="Visible" Binding="{Binding Path=MiddleName}"/>
+                    <DataGridTextColumn Header="Last Name" Visibility="Visible" Binding="{Binding Path=LastName}"/>
+                    <DataGridTextColumn Header="Phone Number" Visibility="Hidden" Binding="{Binding Path=Phone}"/>
+                    <DataGridTextColumn Header="Email" Visibility="Hidden" Binding="{Binding Path=Email}"/>
+                </DataGrid.Columns>
+            </cc:ExpandableDataGrid>
+            <!--<DataGrid >
+                <DataGrid.Columns>
+                    <DataGridTemplateColumn Header="First Name"/>
+                    <DataGridTemplateColumn Header="Middle Name"/>
+                    <DataGridTemplateColumn Header="Last Name"/>
+                    <DataGridTemplateColumn Header="Phone Number"/>
+                    <DataGridTemplateColumn Header="Email"/>
+                </DataGrid.Columns>
+            </DataGrid>-->
+        </StackPanel>
     </Grid>
 </Window>

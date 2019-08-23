@@ -1,31 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Collections.ObjectModel;
+﻿using System.Collections.Generic;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-//using System.Web.UI.WebControls;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace CustomControlLibrary
 {
     public class ExpandableDataGrid : DataGrid
     {
-
-        //static ExpandableDataGrid()
-        //{
-        //    DefaultStyleKeyProperty.OverrideMetadata(typeof(ExpandableDataGrid), new FrameworkPropertyMetadata(typeof(ExpandableDataGrid)));
-        //}
-
         #region Private Properties
         private const string DataGridPart = "PART_DataGrid";
         private DataGrid dataGrid = null;
@@ -41,44 +23,66 @@ namespace CustomControlLibrary
         public static readonly DependencyProperty ColumnListProperty =
                DependencyProperty.Register("ColumnList", typeof(List<ExpandableGridColumn>), typeof(ExpandableDataGrid));
 
-
-
-        //public ObservableCollection<Person> ItemsSource
-        //{
-        //    get { return (ObservableCollection<Person>)GetValue(ItemsSourceProperty); }
-        //    set { SetValue(ItemsSourceProperty, value); }
-        //}
-
-        //public static readonly DependencyProperty ItemsSourceProperty =
-        //    DependencyProperty.Register("ItemsSource", typeof(ObservableCollection<object>), typeof(ExpandableDataGrid));
-
-
-        //public ObservableCollection<DataGridColumn> Columns
-        //{
-        //    get { return (ObservableCollection<DataGridColumn>)GetValue(ColumnsProperty); }
-        //    set { SetValue(ColumnsProperty, value); }
-        //}
-        //public static readonly DependencyProperty ColumnsProperty =
-        //    DependencyProperty.Register("Columns", typeof(ObservableCollection<DataGridColumn>), typeof(ExpandableDataGrid));
-
-
         #endregion DependencyProperties
 
-        #region Overrided Methods
-        public override void OnApplyTemplate()
+        #region Overrided Methods        
+        protected override void OnRenderSizeChanged(SizeChangedInfo sizeInfo)
         {
-            base.OnApplyTemplate();
-            if (ColumnList?.Count > 0)
+            base.OnRenderSizeChanged(sizeInfo);
+            dataGrid = (DataGrid)FindName(DataGridPart);
+            if (ColumnList != null && dataGrid != null)
             {
-
+                SetVisibility(sizeInfo.NewSize.Width);
             }
-            dataGrid = GetTemplateChild(DataGridPart) as DataGrid;            
-            if (dataGrid != null)
-            {
-
-            }
-
         }
         #endregion Overrided Methods
+
+        #region Private Methods
+        private void SetVisibility(double newSize)
+        {
+            double totalWidth = ColumnList.Where(x => x.Visibility.Equals(true)).Sum(y => y.Width);
+            int indexofNextVisibileColumn = ColumnList.IndexOf(ColumnList.FirstOrDefault(x => x.Visibility.Equals(false)));
+            if (indexofNextVisibileColumn > 1)
+                totalWidth += ColumnList[indexofNextVisibileColumn].Width;
+            if (totalWidth < newSize)
+            {
+                if (indexofNextVisibileColumn > 0)
+                {
+                    ColumnList[indexofNextVisibileColumn].Visibility = true;
+                    for (int i = 0; i < dataGrid.Columns.Count; i++)
+                    {
+                        foreach (var item in ColumnList)
+                        {
+                            if (item.ColumnName == ((Binding)(dataGrid.Columns[i].ClipboardContentBinding)).Path.Path)
+                            {
+                                dataGrid.Columns[i].Visibility = item.Visibility ? Visibility.Visible : Visibility.Hidden;
+                            }
+                        }
+                    }
+                }
+            }
+            else
+            {
+                if (indexofNextVisibileColumn == -1)
+                {
+                    ColumnList[ColumnList.Count - 1].Visibility = false;
+                    indexofNextVisibileColumn = ColumnList.Count - 1;
+                }
+                else if (indexofNextVisibileColumn > 1)
+                    ColumnList[indexofNextVisibileColumn - 1].Visibility = false;
+                for (int i = 0; i < dataGrid.Columns.Count; i++)
+                {
+                    foreach (var item in ColumnList)
+                    {
+                        if (item.ColumnName == ((Binding)(dataGrid.Columns[i].ClipboardContentBinding)).Path.Path)
+                        {
+                            dataGrid.Columns[i].Visibility = item.Visibility ? Visibility.Visible : Visibility.Hidden;
+                        }
+                    }
+                }
+            }
+        }
+
+        #endregion Private Methods
     }
 }

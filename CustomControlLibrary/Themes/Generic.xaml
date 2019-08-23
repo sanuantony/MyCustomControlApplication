@@ -5,12 +5,10 @@
     <Style TargetType="{x:Type local:ExpandableDataGrid}" BasedOn="{StaticResource {x:Type DataGrid} }">
         <Setter Property="Template">
             <Setter.Value>
-                <ControlTemplate TargetType="{x:Type local:ExpandableDataGrid}">
+                <ControlTemplate TargetType="{x:Type local:ExpandableDataGrid}" x:Name="PART_DataGrid">
                     <Border Background="{TemplateBinding Background}"
                             BorderBrush="{TemplateBinding BorderBrush}"
                             BorderThickness="{TemplateBinding BorderThickness}">
-                        <!--<DataGrid AutoGenerateColumns="False" ItemsSource="{Binding ItemsSource, RelativeSource={RelativeSource TemplatedParent}}">
-                        </DataGrid>-->
                     </Border>
                 </ControlTemplate>
             </Setter.Value>

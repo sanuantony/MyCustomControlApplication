@@ -13,6 +13,6 @@ namespace CustomControlLibrary
         public string ColumnName { get; set; }
         public bool Visibility { get; set; }
         public int Width { get; set; }
-
+        public bool IsAlwaysVisible { get; set; } = false;        
     }
 }

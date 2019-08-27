@@ -46,7 +46,9 @@ namespace MyCustomControlApplication.ViewModels
                 Order= 1,
                 ColumnName="FirstName",
                 Width=100,
-                Visibility = true
+                Visibility = true,
+                IsAlwaysVisible=true
+
             },
             new ExpandableGridColumn
             {
@@ -54,7 +56,8 @@ namespace MyCustomControlApplication.ViewModels
                 Order= 2,
                 ColumnName="MiddleName",
                 Width=100,
-                Visibility = true
+                Visibility = true,
+                IsAlwaysVisible=true
             },
             new ExpandableGridColumn
             {
@@ -62,23 +65,8 @@ namespace MyCustomControlApplication.ViewModels
                 Order= 3,
                 ColumnName="LastName",
                 Width=100,
-                Visibility = true
-            },
-            new ExpandableGridColumn
-            {
-                Header="Phone",
-                Order= 4,
-                ColumnName="Phone",
-                Width=100,
-                Visibility = false
-            },
-            new ExpandableGridColumn
-            {
-                Header="Email",
-                Order= 5,
-                ColumnName="Email",
-                Width=100,
-                Visibility = false
+                Visibility = true,
+                IsAlwaysVisible=true
             }
         };
 

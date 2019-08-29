@@ -1,0 +1,44 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+
+    <!--  Blues  -->
+    <SolidColorBrush x:Key="UsafaBlue" Color="#005A9E" />
+    <SolidColorBrush x:Key="AliceBlue" Color="#F0F8FF"/>
+
+    <!-- Blue/Greens -->
+    <SolidColorBrush x:Key="PaleTurquoise" Color="#CBE8F4"/>
+    <SolidColorBrush x:Key="Glacier" Color="#84B4C6"/>
+    <SolidColorBrush x:Key="TealBlue" Color="#2C7D9B"/>
+    <SolidColorBrush x:Key="DeepOcean" Color="#106281"/>
+
+    <!--  Grays  -->
+    <SolidColorBrush x:Key="ngWhite" Color="#FFFFFF" />
+    <SolidColorBrush x:Key="Seashell" Color="#F1F1F1"/>
+    <SolidColorBrush x:Key="IvoryWhite" Color="#E4E4E4" />
+    <SolidColorBrush x:Key="Celeste" Color="#CCCCCD"/>
+    <SolidColorBrush x:Key="SilverChalice" Color="#AAAAAA"/>
+    <SolidColorBrush x:Key="Granite" Color="#666666"/>
+    <SolidColorBrush x:Key="MineShaft" Color="#333333" />
+    <SolidColorBrush x:Key="ngBlack" Color="#000000" />
+
+    <!--  Greens  -->
+    <SolidColorBrush x:Key="JapaneseLaurel" Color="#009900" />
+    <SolidColorBrush x:Key="ViridianGreen" Color="#009D97" />
+
+    <!--  Oranges  -->
+    <SolidColorBrush x:Key="TahitiGold" Color="#DF6C26" />
+
+    <!-- Reds -->
+    <SolidColorBrush x:Key="Pippin" Color="#FFE4E1"/>
+    <SolidColorBrush x:Key="RaspberryPink" Color="#C1137E"/>
+    <SolidColorBrush x:Key="Cardinal" Color="#C52427" />
+
+    <!--  Purples  -->
+    <SolidColorBrush x:Key="Twilight" Color="#E2CDE1" />
+    <SolidColorBrush x:Key="FreshEggplant" Color="#80007E" />
+    <SolidColorBrush x:Key="PurpleRain" Color="#6C016A" />
+
+    <!--  Yellows  -->
+    <SolidColorBrush x:Key="BananaYellow" Color="#FFDF22" />
+
+</ResourceDictionary>

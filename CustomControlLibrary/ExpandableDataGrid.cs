@@ -67,14 +67,8 @@ namespace CustomControlLibrary
                         {
                             if (item.ColumnName == ((Binding)(dataGrid.Columns[i].ClipboardContentBinding))?.Path?.Path)
                             {
-                                if (item.IsAlwaysVisible)
-                                {
-                                    dataGrid.Columns[i].Visibility = Visibility.Visible;
-                                }
-                                else
-                                {
+                                if (!item.IsAlwaysVisible)
                                     dataGrid.Columns[i].Visibility = item.Visibility ? Visibility.Visible : Visibility.Hidden;
-                                }
                             }
                         }
                     }
@@ -95,7 +89,8 @@ namespace CustomControlLibrary
                     {
                         if (item.ColumnName == ((Binding)(dataGrid.Columns[i].ClipboardContentBinding))?.Path?.Path)
                         {
-                            dataGrid.Columns[i].Visibility = item.Visibility ? Visibility.Visible : Visibility.Hidden;
+                            if (!item.IsAlwaysVisible)
+                                dataGrid.Columns[i].Visibility = item.Visibility ? Visibility.Visible : Visibility.Hidden;
                         }
                     }
                 }

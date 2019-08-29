@@ -67,6 +67,24 @@ namespace MyCustomControlApplication.ViewModels
                 Width=100,
                 Visibility = true,
                 IsAlwaysVisible=true
+            },
+            new ExpandableGridColumn
+            {
+                Header="Phone",
+                Order= 3,
+                ColumnName="Phone",
+                Width=100,
+                Visibility = true,
+                IsAlwaysVisible=false
+            },
+            new ExpandableGridColumn
+            {
+                Header="Email",
+                Order= 3,
+                ColumnName="Email",
+                Width=100,
+                Visibility = true,
+                IsAlwaysVisible=false
             }
         };
 

@@ -1,9 +1,6 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-                    xmlns:cc="clr-namespace:NextGen.Solaire.TemplateUserControls.UiCustomControls">
-
-    <!-- https://confluence.nextgen.com/pages/viewpage.action?pageId=187124221 -->
-
+                    xmlns:cc="clr-namespace:CustomControlLibrary">
     <ResourceDictionary.MergedDictionaries>
         <ResourceDictionary Source="Colors.xaml"/>
     </ResourceDictionary.MergedDictionaries>

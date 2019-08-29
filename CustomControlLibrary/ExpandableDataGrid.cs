@@ -6,6 +6,8 @@ using System.Windows.Data;
 
 namespace CustomControlLibrary
 {
+    [TemplatePart(Name = "ColumnList", Type = typeof(List<ExpandableGridColumn>))]
+    [TemplatePart(Name = "GridName", Type = typeof(string))]
     public class ExpandableDataGrid : DataGrid
     {
         #region Private Properties
@@ -14,6 +16,16 @@ namespace CustomControlLibrary
         #endregion
 
         #region DependencyProperties
+
+        public string GridName
+        {
+            get { return (string)GetValue(GridNameProperty); }
+            set { SetValue(GridNameProperty, value); }
+        }
+
+        public static readonly DependencyProperty GridNameProperty =
+            DependencyProperty.Register("GridName", typeof(string), typeof(ExpandableDataGrid), new PropertyMetadata(""));
+
         public List<ExpandableGridColumn> ColumnList
         {
             get { return (List<ExpandableGridColumn>)GetValue(ColumnListProperty); }
@@ -53,7 +65,7 @@ namespace CustomControlLibrary
                     {
                         foreach (var item in ColumnList)
                         {
-                            if (item.ColumnName == ((Binding)(dataGrid.Columns[i].ClipboardContentBinding)).Path.Path)
+                            if (item.ColumnName == ((Binding)(dataGrid.Columns[i].ClipboardContentBinding))?.Path?.Path)
                             {
                                 if (item.IsAlwaysVisible)
                                 {
@@ -90,6 +102,17 @@ namespace CustomControlLibrary
             }
         }
 
+
+        private int FindIndexNextVisibleColumn()
+        {
+            var newCList = ColumnList?.Where(x => x.IsAlwaysVisible.Equals(false))?.OrderBy(y => y.Order);
+            int indexofNextVisibileColumn = ColumnList.IndexOf(ColumnList.FirstOrDefault(x => x.Visibility.Equals(false)));
+            if (indexofNextVisibileColumn == -1)
+            {
+
+            }
+            return 0;
+        }
         #endregion Private Methods
     }
 }

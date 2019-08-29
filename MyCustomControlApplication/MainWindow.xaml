@@ -14,21 +14,22 @@
     </Window.DataContext>-->
     <Grid>
         <StackPanel>
-            <cc:ExpandableDataGrid x:Name="PART_DataGrid" CanUserAddRows="false" AutoGenerateColumns="False" ColumnList="{Binding Path=Columns}" ItemsSource="{Binding Path=People}" Margin="50,20,50,20">
-                <!--<cc:ExpandableDataGrid.Columns>
-                    <DataGridTextColumn Header="First Name" Visibility="Visible" Binding="{Binding Path=FirstName}" Width="*"/>
-                    <DataGridTextColumn Header="Middle Name" Visibility="Visible" Binding="{Binding Path=MiddleName}" Width="*"/>
-                    <DataGridTextColumn Header="Last Name" Visibility="Visible" Binding="{Binding Path=LastName}" Width="*"/>
-                    <DataGridTextColumn Header="Phone Number" Visibility="Hidden" Binding="{Binding Path=Phone}" Width="*"/>
-                    <DataGridTextColumn Header="Email" Visibility="Hidden" Binding="{Binding Path=Email}" Width="*"/>
-                </cc:ExpandableDataGrid.Columns>-->
-
+            <cc:ExpandableDataGrid x:Name="PART_DataGrid" GridName="PART_DataGrid" CanUserAddRows="false" AutoGenerateColumns="False" ColumnList="{Binding Path=Columns}" ItemsSource="{Binding Path=People}" Margin="50,20,50,20">
                 <DataGrid.Columns>
                     <DataGridTextColumn Header="First Name" Visibility="Visible" Binding="{Binding Path=FirstName}" Width="*"/>
                     <DataGridTextColumn Header="Middle Name" Visibility="Visible" Binding="{Binding Path=MiddleName}" Width="*"/>
                     <DataGridTextColumn Header="Last Name" Visibility="Visible" Binding="{Binding Path=LastName}" Width="*"/>
                     <DataGridTextColumn Header="Phone Number" Visibility="Hidden" Binding="{Binding Path=Phone}" Width="*"/>
                     <DataGridTextColumn Header="Email" Visibility="Hidden" Binding="{Binding Path=Email}" Width="*"/>
+                    <DataGridTemplateColumn>
+                        <DataGridTemplateColumn.CellTemplate>
+                            <DataTemplate>
+                                <Button>
+                                    <Image Source="../delete-icon-png-16x16-22.jpg" Width="16" Height="16"></Image>
+                                </Button>
+                            </DataTemplate>
+                        </DataGridTemplateColumn.CellTemplate>
+                    </DataGridTemplateColumn>
                 </DataGrid.Columns>
             </cc:ExpandableDataGrid>
         </StackPanel>

@@ -49,22 +49,37 @@ namespace CustomControlLibrary
         }
         #endregion Overrided Methods
 
-        #region Private Methods
+        #region Private Methods        
+
+        /// <summary>
+        /// Setting the visibility based on width of datagrid while rendering.
+        /// </summary>
+        /// <param name="newSize"></param>
         private void SetVisibility(double newSize)
         {
-            double totalWidth = ColumnList.Where(x => x.Visibility.Equals(true)).Sum(y => y.Width);
-            int indexofNextVisibileColumn = ColumnList.IndexOf(ColumnList.FirstOrDefault(x => x.Visibility.Equals(false)));
-            if (indexofNextVisibileColumn > 1)
-                totalWidth += ColumnList[indexofNextVisibileColumn].Width;
-            if (totalWidth < newSize)
+            for (int i = 0; i < ColumnList.Count; i++)
+                if (ColumnList[i].IsAlwaysVisible == true)
+                    ColumnList[i].Visibility = true;
+            double totalWidthOfAllColumns = ColumnList.Sum(x => x.Width);
+            double widthOfVisibleColumns = ColumnList.Where(y => y.Visibility.Equals(true)).Sum(x => x.Width);
+            int indexToShow = FindIndexNextVisibleColumn();
+            int indexToHide = FindIndexNextColumnToHide();
+            if (totalWidthOfAllColumns <= newSize)
             {
-                if (indexofNextVisibileColumn > 0)
+                for (int i = 0; i < dataGrid.Columns.Count; i++)
+                    dataGrid.Columns[i].Visibility = Visibility.Visible;
+            }
+            else if (widthOfVisibleColumns <= newSize)
+            {
+
+                while ((widthOfVisibleColumns + ColumnList[indexToShow].Width) <= newSize && indexToShow != -1)
                 {
-                    ColumnList[indexofNextVisibileColumn].Visibility = true;
-                    for (int i = 0; i < dataGrid.Columns.Count; i++)
+                    if (indexToShow != -1)
                     {
-                        foreach (var item in ColumnList)
+                        ColumnList[indexToShow].Visibility = true;
+                        for (int i = 0; i < dataGrid.Columns.Count; i++)
                         {
+                            var item = ColumnList[indexToShow];
                             if (item.ColumnName == ((Binding)(dataGrid.Columns[i].ClipboardContentBinding))?.Path?.Path)
                             {
                                 if (!item.IsAlwaysVisible)
@@ -72,41 +87,55 @@ namespace CustomControlLibrary
                             }
                         }
                     }
+                    widthOfVisibleColumns = ColumnList.Where(y => y.Visibility.Equals(true)).Sum(x => x.Width);
+                    indexToShow = FindIndexNextVisibleColumn();
                 }
             }
             else
             {
-                if (indexofNextVisibileColumn == -1)
+                while (widthOfVisibleColumns > newSize && indexToHide != -1)
                 {
-                    ColumnList[ColumnList.Count - 1].Visibility = false;
-                    indexofNextVisibileColumn = ColumnList.Count - 1;
-                }
-                else if (indexofNextVisibileColumn > 1)
-                    ColumnList[indexofNextVisibileColumn - 1].Visibility = false;
-                for (int i = 0; i < dataGrid.Columns.Count; i++)
-                {
-                    foreach (var item in ColumnList)
+                    if (indexToHide != -1)
                     {
-                        if (item.ColumnName == ((Binding)(dataGrid.Columns[i].ClipboardContentBinding))?.Path?.Path)
+                        ColumnList[indexToHide].Visibility = false;
+                        for (int i = 0; i < dataGrid.Columns.Count; i++)
                         {
-                            if (!item.IsAlwaysVisible)
-                                dataGrid.Columns[i].Visibility = item.Visibility ? Visibility.Visible : Visibility.Hidden;
+                            var item = ColumnList[indexToHide];
+                            if (item.ColumnName == ((Binding)(dataGrid.Columns[i].ClipboardContentBinding))?.Path?.Path)
+                            {
+                                if (!item.IsAlwaysVisible)
+                                    dataGrid.Columns[i].Visibility = item.Visibility ? Visibility.Visible : Visibility.Hidden;
+                            }
                         }
                     }
+                    widthOfVisibleColumns = ColumnList.Where(y => y.Visibility.Equals(true)).Sum(x => x.Width);
+                    indexToHide = FindIndexNextColumnToHide();
                 }
             }
         }
 
 
+        /// <summary>
+        /// Returns index of next visible
+        /// if -1 is returned all columns are already visible
+        /// </summary>
+        /// <returns>int</returns>
         private int FindIndexNextVisibleColumn()
         {
-            var newCList = ColumnList?.Where(x => x.IsAlwaysVisible.Equals(false))?.OrderBy(y => y.Order);
-            int indexofNextVisibileColumn = ColumnList.IndexOf(ColumnList.FirstOrDefault(x => x.Visibility.Equals(false)));
-            if (indexofNextVisibileColumn == -1)
-            {
 
-            }
-            return 0;
+            var newCList = ColumnList?.Where(x => x.IsAlwaysVisible.Equals(false))?.OrderBy(y => y.Order).ToList();
+            return ColumnList.IndexOf(newCList.FirstOrDefault(x => x.Visibility.Equals(false)));
+        }
+
+        /// <summary>
+        /// Returns index of next column to be hidden
+        /// if -1 is returned all columns are already hidden except always visible columns
+        /// </summary>
+        /// <returns>int</returns>
+        private int FindIndexNextColumnToHide()
+        {
+            var newCList = ColumnList?.Where(x => x.IsAlwaysVisible.Equals(false))?.OrderBy(y => y.Order).ToList();
+            return ColumnList.IndexOf(newCList.LastOrDefault(x => x.Visibility.Equals(true)));
         }
         #endregion Private Methods
     }

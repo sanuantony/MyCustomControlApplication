@@ -8,7 +8,7 @@
         xmlns:dc="clr-namespace:MyCustomControlApplication.ViewModels"
         xmlns:cc="clr-namespace:CustomControlLibrary;assembly=CustomControlLibrary"
         mc:Ignorable="d"
-        Title="MainWindow" Height="450" Width="800">
+        Title="MainWindow" Height="450" Width="650">
     <!--<Window.DataContext>
         <dc:MainWindowViewModel/>
     </Window.DataContext>-->

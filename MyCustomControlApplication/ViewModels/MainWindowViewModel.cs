@@ -73,8 +73,8 @@ namespace MyCustomControlApplication.ViewModels
                 Header="Phone",
                 Order= 3,
                 ColumnName="Phone",
-                Width=100,
-                Visibility = true,
+                Width=200,
+                Visibility = false,
                 IsAlwaysVisible=false
             },
             new ExpandableGridColumn
@@ -82,8 +82,8 @@ namespace MyCustomControlApplication.ViewModels
                 Header="Email",
                 Order= 3,
                 ColumnName="Email",
-                Width=100,
-                Visibility = true,
+                Width=200,
+                Visibility = false,
                 IsAlwaysVisible=false
             }
         };
